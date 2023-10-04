@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 import jwt, datetime
+from decouple import config
 
 # from .models import User
 # Create your views here.
@@ -30,8 +31,8 @@ class LoginView(APIView):
             'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat':datetime.datetime.utcnow()
         }
-
-        token = jwt.encode(payload,"secret",algorithm="HS256")
+        secret = config('JWT_SECRET_KEY')
+        token = jwt.encode(payload,secret,algorithm="HS256")
         response = Response()
         response.set_cookie(key='jwt', value=token, httponly=True)
         
@@ -48,7 +49,8 @@ class UserView(APIView):
         if not token:
             return Response({'message':'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
         try:
-            payload = jwt.decode(token, 'secret', algorithms=["HS256"])
+            secret = config('JWT_SECRET_KEY')
+            payload = jwt.decode(token, secret, algorithms=["HS256"])
         except jwt.ExpiredSignatureError:
             return Response({'message':'Token expired'}, status=status.HTTP_401_UNAUTHORIZED)
         user = User.objects.filter(id=payload['id']).first()
