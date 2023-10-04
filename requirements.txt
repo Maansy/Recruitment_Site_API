@@ -1,0 +1,8 @@
+asgiref==3.7.2
+backports.zoneinfo==0.2.1
+Django==4.2.5
+Pillow==10.0.1
+psycopg2==2.9.9
+python-decouple==3.8
+sqlparse==0.4.4
+typing-extensions==4.8.0
