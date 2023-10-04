@@ -31,3 +31,44 @@ class JobView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({'message':'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class JobDetailView(APIView):
+    def get(self,request,job_id):
+        token = request.COOKIES.get('jwt')
+        user = get_user(token)
+        if not user:
+            return Response({'message':'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        job = Job.objects.filter(id=job_id, company=user.company_id).first()
+        if not job:
+            return Response({'message':'Job not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = JobSerializer(job)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self,request,job_id):
+        token = request.COOKIES.get('jwt')
+        user = get_user(token)
+        if not user:
+            return Response({'message':'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        job = Job.objects.filter(id=job_id, company=user.company_id).first()
+        if not job:
+            return Response({'message':'Job not found'}, status=status.HTTP_404_NOT_FOUND)
+        if user.is_interviewer:
+            return Response({'message':'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
+        serializer = JobCreateSerializer(job, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'message':'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self,request,job_id):
+        token = request.COOKIES.get('jwt')
+        user = get_user(token)
+        if not user:
+            return Response({'message':'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        job = Job.objects.filter(id=job_id, company=user.company_id).first()
+        if not job:
+            return Response({'message':'Job not found'}, status=status.HTTP_404_NOT_FOUND)
+        if user.is_interviewer:
+            return Response({'message':'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
+        job.delete()
+        return Response({'message':'Job deleted'}, status=status.HTTP_200_OK)
