@@ -1,0 +1,30 @@
+GET http://127.0.0.1:8000/jobs/ HTTP/1.1
+content-type: application/json
+
+
+###
+POST http://127.0.0.1:8000/jobs/ HTTP/1.1
+content-type: application/json
+
+{
+    "title" : "Software Engineer",
+    "description" : "We are looking for a software engineer to join our team",
+}
+
+###
+GET http://127.0.0.1:8000/jobs/<int:id> HTTP/1.1
+content-type: application/json
+
+###
+PUT http://127.0.0.1:8000/jobs/<int:id> HTTP/1.1
+content-type: application/json
+
+{
+    "title" : "Software Engineer",
+    "description" : "We are looking for a software engineer to join our team",
+    "is_active" : false
+}
+
+###
+DELETE http://127.0.0.1:8000/jobs/<int:id> HTTP/1.1
+content-type: application/json

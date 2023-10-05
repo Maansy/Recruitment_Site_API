@@ -1,0 +1,28 @@
+
+#    path('users/', include('users.urls')),
+
+POST http://127.0.0.1:8000/users/register/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "test",
+    "email": "test@test.com",
+    "password": "test1234"
+}
+
+###
+POST http://127.0.0.1:8000/users/login/ HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test1234"
+}
+
+###
+GET http://127.0.0.1:8000/users/user/ HTTP/1.1
+content-type: application/json
+
+###
+POST http://127.0.0.1:8000/users/logout/ HTTP/1.1
+content-type: application/json
