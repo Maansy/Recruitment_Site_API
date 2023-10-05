@@ -8,23 +8,27 @@ content-type: application/json
 
 {
     "title" : "Software Engineer",
-    "description" : "We are looking for a software engineer to join our team",
+    "description" : "ss"
 }
 
 ###
-GET http://127.0.0.1:8000/jobs/<int:id> HTTP/1.1
+GET http://127.0.0.1:8000/jobs/5/ HTTP/1.1
 content-type: application/json
 
 ###
-PUT http://127.0.0.1:8000/jobs/<int:id> HTTP/1.1
+PUT http://127.0.0.1:8000/jobs/5/ HTTP/1.1
 content-type: application/json
 
 {
     "title" : "Software Engineer",
     "description" : "We are looking for a software engineer to join our team",
-    "is_active" : false
+    "is_active" : true
 }
 
 ###
-DELETE http://127.0.0.1:8000/jobs/<int:id> HTTP/1.1
+DELETE http://127.0.0.1:8000/jobs/4/ HTTP/1.1
+content-type: application/json
+
+###
+GET http://127.0.0.1:8000/jobs/all/ HTTP/1.1
 content-type: application/json

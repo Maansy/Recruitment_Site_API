@@ -54,7 +54,9 @@ class JobDetailView(APIView):
             return Response({'message':'Job not found'}, status=status.HTTP_404_NOT_FOUND)
         if user.is_interviewer:
             return Response({'message':'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
+        request.data['company'] = user.company_id
         serializer = JobCreateSerializer(job, data=request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -72,3 +74,12 @@ class JobDetailView(APIView):
             return Response({'message':'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
         job.delete()
         return Response({'message':'Job deleted'}, status=status.HTTP_200_OK)
+    
+
+class JobsView(APIView):
+    def get(self,request):
+        token = request.COOKIES.get('jwt')
+        #git active jobs
+        jobs = Job.objects.filter(is_active=True)
+        serializer = JobSerializer(jobs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
