@@ -15,7 +15,7 @@ POST http://127.0.0.1:8000/users/login/ HTTP/1.1
 content-type: application/json
 
 {
-    "email": "test@test.com",
+    "email": "test@test1.com",
     "password": "test1234"
 }
 

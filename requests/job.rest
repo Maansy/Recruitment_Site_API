@@ -32,3 +32,26 @@ content-type: application/json
 ###
 GET http://127.0.0.1:8000/jobs/all/ HTTP/1.1
 content-type: application/json
+
+###
+GET http://127.0.0.1:8000/jobs/2/applications/ HTTP/1.1
+content-type: application/json
+
+###
+GET http://127.0.0.1:8000/jobs/2/applications/5/ HTTP/1.1
+content-type: application/json
+
+###
+POST http://127.0.0.1:8000/jobs/1/applications/4/ HTTP/1.1
+content-type: application/json
+
+{
+    "linkedin_url" : "ww.cc.com",
+    "github_url" : "ww.cc.com"
+}
+
+
+###
+
+GET http://127.0.0.1:8000/jobs/2/applications/analyses/ HTTP/1.1
+content-type: application/json

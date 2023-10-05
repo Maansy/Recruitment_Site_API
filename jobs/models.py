@@ -29,7 +29,10 @@ class JobApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-
+    linkedin_url = models.URLField(blank=True, null=True)
+    github_url = models.URLField(blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+    
     def __str__(self) -> str:
         return f'{self.job.title} - {self.candidate.email}'
     
