@@ -1,4 +1,4 @@
-from .models import Job
+from .models import Job, JobApplication
 from rest_framework import serializers
 from company.models import Company
 
@@ -21,3 +21,9 @@ class JobCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Job.objects.create(**validated_data)
+    
+
+class JobApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobApplication
+        fields = '__all__'

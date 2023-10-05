@@ -1,5 +1,5 @@
-from .models import Job
-from .serializers import JobSerializer, JobCreateSerializer
+from .models import Job, JobApplication
+from .serializers import JobSerializer, JobCreateSerializer, JobApplicationSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -78,8 +78,30 @@ class JobDetailView(APIView):
 
 class JobsView(APIView):
     def get(self,request):
-        token = request.COOKIES.get('jwt')
-        #git active jobs
         jobs = Job.objects.filter(is_active=True)
         serializer = JobSerializer(jobs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class JobApplicationView(APIView):
+    def get(self,request):
+        token = request.COOKIES.get('jwt')
+        user = get_user(token)
+        if not user:
+            return Response({'message':'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        if user.is_interviewer:
+            applications = JobApplication.objects.filter(job__candidate=user)
+            serializer = JobApplicationSerializer(applications, many=True)
+        else:
+            applications = JobApplication.objects.filter(job__company=user.company_id)
+            serializer = JobApplicationSerializer(applications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # def post(self,request):
+    #     token = request.COOKIES.get('jwt')
+    #     user = get_user(token)
+    #     if not user:
+    #         return Response({'message':'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    #     if user.is_interviewer:
+    #         pass
