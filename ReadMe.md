@@ -18,11 +18,6 @@ http://127.0.0.1:8000/admin to open the database (enter your email and password 
 
 If you have any advice, please don't hesitate to tell me.
 
-<h1 align="center">Hi 👋, I'm Abdulrahman Mansy</h1>
-<h3 align="center">A Software Engineer</h3>
-
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=maansy&label=Profile%20views&color=0e75b6&style=flat" alt="maansy" /> </p>
-
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 <a href="https://www.linkedin.com/in/abdulrahman-mansy/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/abdulrahman-mansy/" height="30" width="40" /></a>
